@@ -30,10 +30,16 @@
   };
 
   var loader = this.Unboxed.Loader();
+  var notification = this.Unboxed.Notification();
 
   $('form').submit(function (event) {
     event.preventDefault();
 
+    if (!$(this).find('.username').val()) {
+      return notification.blink('Ehm, perhaps you could enter a Github username.');
+    }
+
+    notification.hide();
     loader.show();
 
     getTopLanguages($(this).find('.username').val())
@@ -58,7 +64,17 @@
     })
     .then(function (html) {
       loader.hide();
+
+      if (!html.length) {
+        notification.show('Oops, there are no repositories for this username.');
+      }
+
       $('.results').html('').append(html);
+    })
+    .fail(function (error) {
+      loader.hide();
+      notification.show("Oops, something unexpected happened. \
+                        Are you using a valid Github username?");
     });
 
   });

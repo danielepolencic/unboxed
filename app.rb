@@ -16,6 +16,7 @@ class App < Sinatra::Base
       '/bower_components/jquery/dist/jquery.js',
       '/scripts/request.js',
       '/scripts/loader.js',
+      '/scripts/notification.js',
       '/scripts/main.js'
     ]
 
