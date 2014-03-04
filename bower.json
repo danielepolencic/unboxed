@@ -1,0 +1,12 @@
+{
+  "name": "unboxed",
+  "version": "0.0.0",
+  "ignore": [
+    ".jshintrc",
+    "**/*.txt"
+  ],
+  "dependencies": {
+    "normalize-css": "2.1.2"
+  },
+  "devDependencies": {}
+}
