@@ -45,9 +45,9 @@
     .then(function (languages) {
       return languages.map(function (program) {
 
-        return $('<div class="line">').append(
-          $('<div class="unit size1of2">').text(program.language),
-          $('<div class="unit size1of2">').text(program.loc)
+        return $('<li class="result">').append(
+          $('<div>').text(program.language),
+          $('<div>').text(program.loc)
         );
 
       });
