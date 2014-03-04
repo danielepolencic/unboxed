@@ -13,6 +13,8 @@ class App < Sinatra::Base
     serve '/bower_components', from: 'assets/bower_components'
 
     js :application, '/scripts/application.js', [
+      '/bower_components/jquery/dist/jquery.js',
+      '/scripts/request.js',
       '/scripts/main.js'
     ]
 
