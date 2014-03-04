@@ -15,6 +15,7 @@ class App < Sinatra::Base
     js :application, '/scripts/application.js', [
       '/bower_components/jquery/dist/jquery.js',
       '/scripts/request.js',
+      '/scripts/loader.js',
       '/scripts/main.js'
     ]
 

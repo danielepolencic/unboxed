@@ -29,8 +29,12 @@
     });
   };
 
+  var loader = this.Unboxed.Loader();
+
   $('form').submit(function (event) {
     event.preventDefault();
+
+    loader.show();
 
     getTopLanguages($(this).find('.username').val())
     .then(function (languages) {
@@ -53,8 +57,10 @@
       });
     })
     .then(function (html) {
+      loader.hide();
       $('.results').html('').append(html);
-    })
+    });
+
   });
 
 }).call(this);
