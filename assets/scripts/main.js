@@ -5,10 +5,10 @@
   var request = this.Unboxed.request({base: 'https://api.github.com'});
 
   var getTopLanguages = function (username) {
-    return request.get('/users/danielepolencic/repos')
+    return request.get('/users/' + username + '/repos')
     .then(function (repos) {
       var languages_in_repos = repos.map(function (repo) {
-        return request.get('/repos/danielepolencic/' + repo.name + '/languages')
+        return request.get('/repos/' + username + '/' + repo.name + '/languages')
         .then(function (languages) {
           return languages;
         });
@@ -28,5 +28,33 @@
       }, {});
     });
   };
+
+  $('form').submit(function (event) {
+    event.preventDefault();
+
+    getTopLanguages($(this).find('.username').val())
+    .then(function (languages) {
+      return Object.keys(languages).reduce(function (accumulator, language) {
+        accumulator.push({language: language, loc: languages[language]});
+        return accumulator;
+      }, []);
+    })
+    .then(function (languages) {
+      return languages.sort(function (a, b) { return b.loc - a.loc; })
+    })
+    .then(function (languages) {
+      return languages.map(function (program) {
+
+        return $('<div class="line">').append(
+          $('<div class="unit size1of2">').text(program.language),
+          $('<div class="unit size1of2">').text(program.loc)
+        );
+
+      });
+    })
+    .then(function (html) {
+      $('.results').html('').append(html);
+    })
+  });
 
 }).call(this);
